@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "750bd89a-f414-4026-899d-cc438c91a893",
+		"name": "Test Laravel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28068696"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Fayssal Customer\",\n  \"email\": \"customer@archisoftwares.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0612345678\",\n  \"role\": \"customer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "## Register User API\n\nThis endpoint allows new users to register by providing their personal details. Upon successful registration, the API will return a user object along with an authentication token.\n\n### HTTP Method\n\n`POST`\n\n### Request URL\n\n`http://127.0.0.1:8000/api/register`\n\n### Request Body\n\nThe request must be sent in JSON format and should contain the following fields:\n\n- **name** (string): The full name of the user.\n    \n- **email** (string): The email address of the user. It should be unique and valid.\n    \n- **password** (string): The password for the user account. It should meet security requirements.\n    \n- **phone** (string): The phone number of the user.\n    \n- **role** (string): The role of the user, typically set to \"customer\".\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"name\": \"Fayssal Customer\",\n  \"email\": \"customer@archisoftwares.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0612345678\",\n  \"role\": \"customer\"\n}\n\n ```\n\n### Response\n\nOn a successful registration, the API will return a `201 Created` status with a JSON response containing the following structure:\n\n- **user** (object): An object representing the registered user, which includes:\n    \n    - **name** (string): The name of the user.\n        \n    - **email** (string): The email of the user.\n        \n    - **phone** (string): The phone number of the user.\n        \n    - **role** (string): The role assigned to the user.\n        \n    - **updated_at** (string): Timestamp of when the user information was last updated.\n        \n    - **created_at** (string): Timestamp of when the user was created.\n        \n    - **id** (integer): A unique identifier for the user.\n        \n- **token** (string): An authentication token that can be used for subsequent requests.\n    \n\n#### Example Response\n\n``` json\n{\n  \"user\": {\n    \"name\": \"\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"role\": \"\",\n    \"updated_at\": \"\",\n    \"created_at\": \"\",\n    \"id\": 0\n  },\n  \"token\": \"\"\n}\n\n ```\n\n### Notes\n\n- Ensure that all required fields are provided in the request body.\n    \n- The response will include the user details and a token for authentication purposes."
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@archisoftwares.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "\n### Login API Endpoint\n\nThis endpoint allows users to authenticate by providing their email and password. Upon successful authentication, the server responds with user details and a token for session management.\n\n#### Request\n\n- **Method**: POST\n- **URL**: `http://127.0.0.1:8000/api/login`\n- **Request Body** (JSON):\n  - `email` (string): The email address of the user attempting to log in.\n  - `password` (string): The password associated with the user's email.\n\n**Example Request Body**:\n```json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"your_password\"\n}\n```\n\n#### Response\n\n- **Status Code**: 200 OK\n- **Content-Type**: application/json\n- **Response Body** (JSON):\n  - `user`: An object containing user details:\n    - `id` (integer): Unique identifier for the user.\n    - `name` (string): The name of the user.\n    - `email` (string): The email address of the user.\n    - `phone` (string): The phone number of the user.\n    - `role` (string): The role assigned to the user.\n    - `email_verified_at` (string or null): Timestamp of when the email was verified.\n    - `created_at` (string): The timestamp when the user was created.\n    - `updated_at` (string): The timestamp when the user details were last updated.\n  - `token` (string): A token that can be used for subsequent authenticated requests.\n\n**Example Response Body**:\n```json\n{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"1234567890\",\n    \"role\": \"admin\",\n    \"email_verified_at\": \"2023-01-01T00:00:00Z\",\n    \"created_at\": \"2023-01-01T00:00:00Z\",\n    \"updated_at\": \"2023-01-01T00:00:00Z\"\n  },\n  \"token\": \"your_jwt_token\"\n}\n```\n\n#### Notes\n- Ensure that the email and password are correct to avoid authentication errors.\n- The returned token should be securely stored and included in the headers of future requests to access protected resources.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|emXkOoMo9uDqdq7SDJd51ivB8PXScuRFziSYvj6f19958440",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/logout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "\n## Logout API\n\nThis endpoint allows users to log out of their session. Upon successful execution, it invalidates the user's session and returns a confirmation message.\n\n### Request\n\n- **Method**: POST\n- **URL**: `http://127.0.0.1:8000/api/logout`\n\n### Expected Response\n\n- **Status Code**: 200 OK\n- **Content-Type**: application/json\n- **Response Body**:\n  - `message`: A confirmation message indicating the successful logout. This field may be empty.\n\n### Notes\n\n- Ensure that the user is authenticated before attempting to log out.\n- This endpoint does not require any additional parameters in the request body.\n- A successful response confirms that the user's session has been terminated.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|emXkOoMo9uDqdq7SDJd51ivB8PXScuRFziSYvj6f19958440",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"me"
+							]
+						},
+						"description": "\n## API Endpoint: Get User Information\n\n### Method\n`GET`\n\n### Endpoint\n`http://127.0.0.1:8000/api/me`\n\n### Description\nThis endpoint retrieves the authenticated user's information. It does not require any request body.\n\n### Request\n- **Method**: GET\n- **Body**: No request body is required for this endpoint.\n\n### Response\nUpon a successful request, the server responds with a `200 OK` status and returns a JSON object containing the following fields:\n\n- **id**: The unique identifier for the user.\n- **name**: The name of the user.\n- **email**: The email address of the user.\n- **phone**: The phone number of the user.\n- **role**: The user's role within the application.\n- **email_verified_at**: Timestamp indicating when the email was verified, or null if not verified.\n- **created_at**: Timestamp of when the user was created.\n- **updated_at**: Timestamp of the last update to the user's information.\n\n### Response Format\n- **Content-Type**: application/json\n- **Example Response**:\n```json\n{\n    \"id\": 0,\n    \"name\": \"\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"role\": \"\",\n    \"email_verified_at\": null,\n    \"created_at\": \"\",\n    \"updated_at\": \"\"\n}\n```\nThis response structure allows clients to easily access and utilize user information as needed.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Endpoints",
+			"item": [
+				{
+					"name": "All Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/events",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "\n### API Endpoint: Get Events\n\nThis endpoint retrieves a list of events from the server. It is a **GET** request that does not require any parameters in the request body. The response will contain information about the events, including their details and pagination information.\n\n#### Request Format\n- **Method**: GET\n- **URL**: `http://127.0.0.1:8000/api/events`\n- **Request Body**: None\n\n#### Response Structure\nUpon a successful request, the server responds with a JSON object containing the following fields:\n\n- **current_page**: (integer) Indicates the current page number of the results.\n- **data**: (array) An array of event objects, where each object contains:\n  - **id**: (integer) The unique identifier for the event.\n  - **title**: (string) The title of the event.\n  - **description**: (string) A brief description of the event.\n  - **date**: (string) The date of the event.\n  - **location**: (string) The location where the event will take place.\n  - **created_by**: (integer) The identifier of the user who created the event.\n  - **created_at**: (string) Timestamp of when the event was created.\n  - **updated_at**: (string) Timestamp of the last update made to the event.\n  - **tickets**: (array) An array containing ticket information related to the event.\n- **first_page_url**: (string) URL to the first page of results.\n- **from**: (integer) The starting index of the current page.\n- **last_page**: (integer) The last page number of the results.\n- **last_page_url**: (string) URL to the last page of results.\n- **links**: (array) An array of pagination links, where each link object contains:\n  - **url**: (string or null) The URL for the pagination link.\n  - **label**: (string) The label for the pagination link.\n  - **page**: (integer or null) The page number for the pagination link.\n  - **active**: (boolean) Indicates if the link is active.\n- **next_page_url**: (string or null) URL to the next page of results, if available.\n- **path**: (string) The base path for the pagination.\n- **per_page**: (integer) The number of results per page.\n- **prev_page_url**: (string or null) URL to the previous page of results, if available.\n- **to**: (integer) The ending index of the current page.\n- **total**: (integer) The total number of events available.\n\nThis endpoint is useful for applications that need to display a list of events, allowing users to navigate through pages of results.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Single Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/events/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						},
+						"description": "\n# Retrieve Event Details\n\nThis endpoint allows you to retrieve the details of a specific event by its unique identifier.\n\n## Request\n\n- **Method:** GET\n- **URL:** `http://127.0.0.1:8000/api/events/{id}`\n\n### Path Parameters\n\n- `id` (required): The unique identifier of the event you wish to retrieve. In this example, the id is `1`.\n\n## Response\n\nOn a successful request, the server responds with a status code of `200` and a JSON object containing the following fields:\n\n- `id`: The unique identifier of the event.\n- `title`: The title of the event.\n- `description`: A brief description of the event.\n- `date`: The date of the event.\n- `location`: The location where the event will take place.\n- `created_by`: The identifier of the user who created the event.\n- `created_at`: The timestamp when the event was created.\n- `updated_at`: The timestamp when the event was last updated.\n- `tickets`: An array containing ticket information related to the event.\n\n### Notes\n\n- Ensure that the `id` parameter is valid and corresponds to an existing event in the system.\n- The response will return an empty string for fields that do not have data available for the specified event.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Music Festival Marrakech\",\n  \"description\": \"Annual desert music festival\",\n  \"date\": \"2025-11-20 18:00:00\",\n  \"location\": \"Marrakech\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/events",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events"
+							]
+						},
+						"description": "\n## API Endpoint: Create Event\n\nThis endpoint allows users to create a new event by submitting relevant details. Upon successful creation, the API will return the details of the created event.\n\n### Request\n\n- **Method**: POST\n- **URL**: `http://127.0.0.1:8000/api/events`\n\n#### Request Body\n\nThe request body must be in JSON format and should contain the following parameters:\n\n| Parameter   | Type   | Description                               |\n|-------------|--------|-------------------------------------------|\n| `title`     | string | The title of the event.                   |\n| `description` | string | A brief description of the event.       |\n| `date`      | string | The date and time of the event in `YYYY-MM-DD HH:MM:SS` format. |\n| `location`  | string | The location where the event will take place. |\n\n**Example Request Body:**\n```json\n{\n  \"title\": \"Music Festival Marrakech\",\n  \"description\": \"Annual desert music festival\",\n  \"date\": \"2025-11-20 18:00:00\",\n  \"location\": \"Marrakech\"\n}\n```\n\n### Response\n\nOn a successful request, the API will respond with a status code of `201 Created` and return a JSON object containing the details of the created event.\n\n#### Response Body Structure\n\nThe response will include the following fields:\n\n| Field        | Type   | Description                               |\n|--------------|--------|-------------------------------------------|\n| `title`      | string | The title of the event (returned as empty string if not set). |\n| `description`| string | The description of the event (returned as empty string if not set). |\n| `date`       | string | The date and time of the event (returned as empty string if not set). |\n| `location`   | string | The location of the event (returned as empty string if not set). |\n| `created_by` | integer | The ID of the user who created the event (default is 0). |\n| `updated_at` | string | The timestamp of when the event was last updated (returned as empty string if not set). |\n| `created_at` | string | The timestamp of when the event was created (returned as empty string if not set). |\n| `id`         | integer | The unique identifier for the event (default is 0). |\n\n**Example Response:**\n```json\n{\n  \"title\": \"\",\n  \"description\": \"\",\n  \"date\": \"\",\n  \"location\": \"\",\n  \"created_by\": 0,\n  \"updated_at\": \"\",\n  \"created_at\": \"\",\n  \"id\": 0\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/events/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						},
+						"description": "\n## DELETE /api/events/{id}\n\nThis endpoint is used to delete a specific event from the system. The event to be deleted is identified by its unique ID, which is provided in the request URL.\n\n### Request Parameters\n- **id** (path parameter): The unique identifier of the event that you wish to delete. In this example, the ID is `1`.\n\n### Expected Response\n- **Status Code**: `200 OK` indicates that the deletion was successful.\n- **Content-Type**: `application/json`\n- **Response Body**: A JSON object containing a message indicating the outcome of the request. The message will be empty if the deletion is successful.\n\n### Notes\n- Ensure that the event ID provided in the URL corresponds to an existing event. If the ID does not exist, the server may return an error.\n- This operation is irreversible; once an event is deleted, it cannot be recovered.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket Endpoints",
+			"item": [
+				{
+					"name": "Create Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"VIP\",\n  \"price\": 120,\n  \"quantity\": 50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/events/2/tickets",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"2",
+								"tickets"
+							]
+						},
+						"description": "\n## Add Ticket to Event\n\nThis endpoint allows you to add tickets to a specific event by sending a POST request to the designated URL.\n\n### Endpoint\n`POST http://127.0.0.1:8000/api/events/{event_id}/tickets`\n\n### Request Parameters\nThe request body should be in JSON format and include the following parameters:\n\n- **type** (string): The type of ticket being added (e.g., VIP).\n- **price** (number): The price of the ticket.\n- **quantity** (number): The number of tickets to be added.\n\n#### Example Request Body\n```json\n{\n  \"type\": \"VIP\",\n  \"price\": 120,\n  \"quantity\": 50\n}\n```\n\n### Response Format\nUpon successful creation of the tickets, the API will respond with a status code of `201 Created`. The response will be in JSON format and will include the following fields:\n\n- **type** (string): The type of ticket that was created.\n- **price** (number): The price of the ticket.\n- **quantity** (number): The quantity of tickets created.\n- **event_id** (number): The ID of the event to which the tickets were added.\n- **updated_at** (string): Timestamp of when the ticket information was last updated.\n- **created_at** (string): Timestamp of when the ticket was created.\n- **id** (number): The unique identifier for the newly created ticket.\n\n#### Example Response\n```json\n{\n  \"type\": \"\",\n  \"price\": 0,\n  \"quantity\": 0,\n  \"event_id\": 0,\n  \"updated_at\": \"\",\n  \"created_at\": \"\",\n  \"id\": 0\n}\n```\n\n### Notes\nEnsure that the `event_id` in the URL corresponds to an existing event. The response will reflect the details of the ticket added, with the actual values populated based on the request.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 150\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tickets/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tickets",
+								"1"
+							]
+						},
+						"description": "\n## Update Ticket Price\n\nThis endpoint allows you to update the price of a specific ticket identified by its ID.\n\n### Request\n\n- **Method**: `PUT`\n- **Endpoint**: `http://127.0.0.1:8000/api/tickets/{id}`\n- **Path Parameter**:\n  - `id` (required): The unique identifier of the ticket you want to update.\n\n### Request Body\n\nThe request body must be in JSON format and should include the following parameter:\n\n- `price` (number): The new price for the ticket.\n\n**Example Request Body**:\n```json\n{\n  \"price\": 150\n}\n```\n\n### Response\n\nOn a successful update, the API returns a `200 OK` status with a JSON response that includes the following fields:\n\n- `id`: The unique identifier of the ticket.\n- `type`: The type of the ticket (currently empty).\n- `price`: The updated price of the ticket.\n- `quantity`: The quantity of tickets (currently set to 0).\n- `event_id`: The identifier of the associated event (currently set to 0).\n- `created_at`: Timestamp of when the ticket was created (currently empty).\n- `updated_at`: Timestamp of when the ticket was last updated (currently empty).\n\n**Example Response**:\n```json\n{\n  \"id\": 0,\n  \"type\": \"\",\n  \"price\": 0,\n  \"quantity\": 0,\n  \"event_id\": 0,\n  \"created_at\": \"\",\n  \"updated_at\": \"\"\n}\n```\n\n### Notes\n\nEnsure that the ticket ID in the URL corresponds to an existing ticket for the update to be successful.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tickets/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tickets",
+								"1"
+							]
+						},
+						"description": "\n## DELETE /api/tickets/{id}\n\nThis endpoint is used to delete a specific ticket identified by its unique ID. In this case, the request targets the ticket with ID `1`. \n\n### Request Parameters\n- **Path Parameter:**\n  - `id` (required): The unique identifier of the ticket you wish to delete. This should be a numeric value corresponding to the ticket's ID.\n\n### Response Structure\nUpon successful deletion of the ticket, the server responds with:\n- **Status Code:** `200 OK`\n- **Content-Type:** `application/json`\n- **Response Body:**\n  - `message`: A confirmation message indicating the result of the deletion operation. The message may be empty but signifies that the operation was successful.\n\n### Example Response\n```json\n{\n  \"message\": \"\"\n}\n```\n\nThis endpoint is typically used in scenarios where a user wants to remove a ticket from the system, such as canceling a ticket or cleaning up resources.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking Endpoints",
+			"item": [
+				{
+					"name": "Book a Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/tickets/2/bookings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tickets",
+								"2",
+								"bookings"
+							]
+						},
+						"description": "\n## Book Ticket\n\nThis endpoint allows users to book tickets for an event. By sending a POST request to the specified URL, users can specify the quantity of tickets they wish to book.\n\n### Request\n\n- **URL**: `http://127.0.0.1:8000/api/tickets/2/bookings`\n- **Method**: POST\n- **Request Body**: The request must include a JSON payload with the following parameter:\n  - `quantity` (integer): The number of tickets to book.\n\n**Example Request Body**:\n```json\n{\n  \"quantity\": 2\n}\n```\n\n### Response\n\nUpon a successful booking, the API will return a response with a status code of `201 Created`. The response body will contain the following fields:\n\n- `user_id` (integer): The ID of the user who made the booking.\n- `ticket_id` (integer): The ID of the booked ticket.\n- `quantity` (integer): The number of tickets booked.\n- `status` (string): The current status of the booking.\n- `updated_at` (string): Timestamp of when the booking was last updated.\n- `created_at` (string): Timestamp of when the booking was created.\n- `id` (integer): The unique identifier for the booking.\n- `ticket` (object): Details about the booked ticket, containing:\n  - `id` (integer): The ID of the ticket.\n  - `type` (string): The type of the ticket.\n  - `price` (string): The price of the ticket.\n  - `quantity` (integer): The available quantity of this ticket.\n  - `event_id` (integer): The ID of the associated event.\n  - `created_at` (string): Timestamp of when the ticket was created.\n  - `updated_at` (string): Timestamp of when the ticket was last updated.\n  - `event` (object): Details about the event, containing:\n    - `id` (integer): The ID of the event.\n    - `title` (string): The title of the event.\n    - `description` (string): A description of the event.\n    - `date` (string): The date of the event.\n    - `location` (string): The location of the event.\n    - `created_by` (integer): The ID of the user who created the event.\n    - `created_at` (string): Timestamp of when the event was created.\n    - `updated_at` (string): Timestamp of when the event was last updated.\n\n### Notes\n\n- Ensure that the quantity specified does not exceed the available tickets for the event.\n- The response will provide comprehensive details about the booking and the associated ticket and event.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "View Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bookings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "\n## API Endpoint: Get Bookings\n\n### Purpose\nThis endpoint retrieves a list of bookings made by users. It provides detailed information about each booking, including associated ticket and event details.\n\n### Request Parameters\nThis is a **GET** request and does not require any input parameters.\n\n### Response Structure\nOn a successful request, the API returns a JSON array containing the bookings. Each booking object includes the following fields:\n\n- **id**: Unique identifier for the booking.\n- **user_id**: Identifier for the user who made the booking.\n- **ticket_id**: Identifier for the ticket associated with the booking.\n- **quantity**: Number of tickets booked.\n- **status**: Current status of the booking.\n- **created_at**: Timestamp of when the booking was created.\n- **updated_at**: Timestamp of when the booking was last updated.\n- **ticket**: An object containing details about the ticket:\n  - **id**: Unique identifier for the ticket.\n  - **type**: Type of the ticket.\n  - **price**: Price of the ticket.\n  - **quantity**: Available quantity of the ticket.\n  - **event_id**: Identifier for the event associated with the ticket.\n  - **created_at**: Timestamp of when the ticket was created.\n  - **updated_at**: Timestamp of when the ticket was last updated.\n  - **event**: An object containing details about the event:\n    - **id**: Unique identifier for the event.\n    - **title**: Title of the event.\n    - **description**: Description of the event.\n    - **date**: Date of the event.\n    - **location**: Location of the event.\n    - **created_by**: Identifier for the user who created the event.\n    - **created_at**: Timestamp of when the event was created.\n    - **updated_at**: Timestamp of when the event was last updated.\n\n### Status Codes\n- **200 OK**: The request was successful, and the list of bookings is returned.\n\nThis endpoint is useful for users to view their booking history and details about the tickets and events they have booked.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel a Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bookings/1/cancel",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bookings",
+								"1",
+								"cancel"
+							]
+						},
+						"description": "\n## Cancel Booking\n\nThis endpoint allows users to cancel an existing booking by specifying the booking ID in the URL. \n\n### Request\n\n- **Method**: PUT\n- **URL**: `http://127.0.0.1:8000/api/bookings/{id}/cancel`\n  - Replace `{id}` with the actual booking ID you wish to cancel.\n\n### Response\n\nUpon a successful request, the API will return a `200 OK` status with a JSON response containing the following structure:\n\n- **message**: A string that may contain additional information about the cancellation process (can be empty).\n- **booking**: An object representing the details of the canceled booking, which includes:\n  - **id**: The unique identifier of the booking.\n  - **user_id**: The identifier of the user who made the booking.\n  - **ticket_id**: The identifier of the ticket associated with the booking.\n  - **quantity**: The number of tickets that were booked.\n  - **status**: The current status of the booking (e.g., canceled).\n  - **created_at**: The timestamp when the booking was created.\n  - **updated_at**: The timestamp when the booking was last updated.\n  - **ticket**: An object containing details about the ticket:\n    - **id**: The unique identifier of the ticket.\n    - **type**: The type of the ticket (e.g., standard, VIP).\n    - **price**: The price of the ticket.\n    - **quantity**: The available quantity of the ticket.\n    - **event_id**: The identifier of the event associated with the ticket.\n    - **created_at**: The timestamp when the ticket was created.\n    - **updated_at**: The timestamp when the ticket was last updated.\n\n### Notes\n\nEnsure that the booking ID provided in the URL corresponds to an existing booking to successfully cancel it.\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Endpoints",
+			"item": [
+				{
+					"name": "Make a Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/bookings/2/payment",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bookings",
+								"2",
+								"payment"
+							]
+						},
+						"description": "\n## Payment for Booking\n\nThis endpoint is used to process a payment for a specific booking identified by its ID. It allows users to submit payment details and receive confirmation of the transaction.\n\n### Request\n\n- **Method**: POST\n- **URL**: `http://127.0.0.1:8000/api/bookings/2/payment`\n\n#### Request Body Parameters\n\nThe request body should contain the following parameters:\n\n- **booking_id** (integer, required): The ID of the booking for which the payment is being made.\n- **amount** (decimal, required): The total amount to be paid for the booking.\n- **status** (string, required): The current status of the payment (e.g., 'pending', 'completed').\n- **updated_at** (string, optional): Timestamp of when the payment was last updated.\n- **created_at** (string, optional): Timestamp of when the payment was created.\n- **id** (integer, optional): Unique identifier for the payment transaction.\n\n### Response\n\nOn successful payment processing, the API will return a response with the following structure:\n\n- **Status**: 201 Created\n- **Content-Type**: application/json\n\n#### Response Body\n\nThe response body will contain a JSON object with the following properties:\n\n- **message** (string): A message indicating the result of the payment processing (may be empty).\n- **payment** (object): An object containing details about the processed payment:\n  - **booking_id** (integer): The ID of the booking associated with the payment.\n  - **amount** (decimal): The amount that was paid.\n  - **status** (string): The current status of the payment.\n  - **updated_at** (string): Timestamp of when the payment was last updated.\n  - **created_at** (string): Timestamp of when the payment was created.\n  - **id** (integer): Unique identifier for the payment transaction.\n  - **booking** (object): An object containing details about the booking:\n    - **id** (integer): The ID of the booking.\n    - **user_id** (integer): The ID of the user who made the booking.\n    - **ticket_id** (integer): The ID of the ticket associated with the booking.\n    - **quantity** (integer): The number of tickets booked.\n    - **status** (string): The current status of the booking.\n    - **created_at** (string): Timestamp of when the booking was created.\n    - **updated_at** (string): Timestamp of when the booking was last updated.\n    - **ticket** (object): An object containing details about the ticket:\n      - **id** (integer): The ID of the ticket.\n      - **type** (string): The type of the ticket.\n      - **price** (decimal): The price of the ticket.\n      - **quantity** (integer): The available quantity of the ticket.\n      - **event_id** (integer): The ID of the event associated with the ticket.\n      - **created_at** (string): Timestamp of when the ticket was created.\n      - **updated_at** (string): Timestamp of when the ticket was last updated.\n      - **event** (object): An object containing details about the event:\n        - **id** (integer): The ID of the event.\n        - **title** (string): The title of the event.\n        - **description** (string): A description of the event.\n        - **date** (string): The date of the event.\n        - **location** (string): The location of the event.\n        - **created_by** (integer): The ID of the user who created the event.\n        - **created_at** (string): Timestamp of when the event was created.\n        - **updated_at** (string): Timestamp of when the event was last updated.\n\n### Usage\n\nEnsure that all required parameters are included in the request body. The response will provide confirmation of the payment and details about the associated booking and ticket. This endpoint is essential for managing payments within the booking system.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|fr1DU0z4lAIDLwZD1j48q84Fr6vVFftFbSiXaj5r962de541",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/payments/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payments",
+								"1"
+							]
+						},
+						"description": "\n### Endpoint Description\n\nThis API endpoint retrieves the details of a specific payment record based on the provided payment ID. It is a **GET** request, which means it is used to fetch data from the server without modifying any resources.\n\n### Request\n\n- **Method**: GET\n- **URL**: `http://127.0.0.1:8000/api/payments/{id}`\n- **Path Parameter**:\n  - `id` (integer): The unique identifier of the payment record you want to retrieve. In this example, it is `1`.\n\n### Expected Headers\n\n- **Content-Type**: `application/json`\n- **Authorization**: (optional) Bearer token or API key if authentication is required.\n\n### Response Structure\n\nUpon a successful request, the server will respond with a **200 OK** status and a JSON object containing the payment details. The structure of the response is as follows:\n\n```json\n{\n  \"id\": 0,\n  \"booking_id\": 0,\n  \"amount\": \"\",\n  \"status\": \"\",\n  \"created_at\": \"\",\n  \"updated_at\": \"\",\n  \"booking\": {\n    \"id\": 0,\n    \"user_id\": 0,\n    \"ticket_id\": 0,\n    \"quantity\": 0,\n    \"status\": \"\",\n    \"created_at\": \"\",\n    \"updated_at\": \"\",\n    \"ticket\": {\n      \"id\": 0,\n      \"type\": \"\",\n      \"price\": \"\",\n      \"quantity\": 0,\n      \"event_id\": 0,\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"event\": {\n        \"id\": 0,\n        \"title\": \"\",\n        \"description\": \"\",\n        \"date\": \"\",\n        \"location\": \"\",\n        \"created_by\": 0,\n        \"created_at\": \"\",\n        \"updated_at\": \"\"\n      }\n    }\n  }\n}\n```\n\n### Response Fields\n\n- `id` (integer): The unique identifier of the payment.\n- `booking_id` (integer): The ID of the associated booking.\n- `amount` (string): The amount of the payment.\n- `status` (string): The current status of the payment.\n- `created_at` (string): Timestamp of when the payment was created.\n- `updated_at` (string): Timestamp of when the payment was last updated.\n- `booking` (object): Contains details about the booking associated with the payment.\n  - `id`, `user_id`, `ticket_id`, `quantity`, `status`, `created_at`, `updated_at`: Various attributes of the booking.\n  - `ticket` (object): Contains details about the ticket associated with the booking.\n    - `id`, `type`, `price`, `quantity`, `event_id`, `created_at`, `updated_at`: Various attributes of the ticket.\n    - `event` (object): Contains details about the event associated with the ticket.\n      - `id`, `title`, `description`, `date`, `location`, `created_by`, `created_at`, `updated_at`: Various attributes of the event.\n\nThis endpoint provides a comprehensive view of the payment and its associated booking and ticket details.\n"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
